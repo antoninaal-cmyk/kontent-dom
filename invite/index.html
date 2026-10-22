@@ -30,6 +30,14 @@
   @keyframes wob{0%,100%{transform:rotate(-14deg)}50%{transform:rotate(-4deg) scale(1.06)}}
   @keyframes spin{to{transform:rotate(360deg)}}
   @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+  .duo{position:relative;display:flex;justify-content:center;align-items:center;margin:4px auto 22px;height:170px}
+  .duo .ph{width:150px;height:150px;border-radius:50%;overflow:hidden;border:6px solid #fff;box-shadow:0 14px 30px rgba(17,16,16,.16);background:#111;animation:float 4s ease-in-out infinite}
+  .duo .ph:first-child{margin-right:-18px;z-index:1;animation-delay:.6s}
+  .duo .ph img{width:100%;height:100%;object-fit:cover;display:block}
+  .duo .mine img{object-position:50% 43%;transform:scale(2.1);transform-origin:57% 42%}
+  .duo .link{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;width:46px;height:46px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 6px 16px rgba(200,22,29,.4);animation:beat 1.3s ease-in-out infinite}
+  @keyframes beat{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.15)}}
+  .duo .stamp{left:auto;right:calc(50% - 175px);bottom:-14px;width:76px;height:76px;font-size:15px;z-index:4}
   .hello{font-family:'Bad Script',cursive;color:var(--red);font-size:30px;line-height:1.2}
   h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(40px,11vw,54px);line-height:1;margin:6px 0 4px}
   h1 em{color:var(--red);font-style:italic}
@@ -92,7 +100,7 @@
 <script>
   // Личные открытки: короткая ссылка .../invite/?id=natalia
   const PEOPLE = {
-    natalia: {to: 'Наталья', hi: '1', p: 'Наталья, ты психолог-наставник по проявленности, автор игры «Моя игра» и собираешь людей на классных мероприятиях по КМВ и Ставрополью. Тебе откликнулись мастермайнды — в Доме они каждую неделю: ставим цели, разбираем задачи и растём вместе.'}
+    natalia: {to: 'Наталья', hi: '1', photo: 'natalia.jpg', p: 'Наталья, ты психолог-наставник по проявленности, автор игры «Моя игра» и собираешь людей на классных мероприятиях по КМВ и Ставрополью. Тебе откликнулись мастермайнды — в Доме они каждую неделю: ставим цели, разбираем задачи и растём вместе.'}
   };
   const q = new URLSearchParams(location.search);
   const person = PEOPLE[(q.get('id') || '').toLowerCase()] || {};
@@ -102,6 +110,10 @@
   if (to) {
     document.getElementById('hello').textContent = to + ', привет!';
     document.title = to + ', приглашение в Контент-дом';
+  }
+  if (person.photo) {
+    const me = document.querySelector('.me');
+    me.outerHTML = '<div class="duo"><div class="ph"><img src="' + person.photo + '" alt=""></div><span class="link">✦</span><div class="ph mine"><img src="../hero.jpg" alt="Антонина Алдатова"></div><div class="stamp">двери<br>открыты</div></div>';
   }
   if (p) { const el = document.getElementById('personal'); el.textContent = p; el.style.display = 'block'; }
   const hi = (q.get('hi') || '').replace(/\D/g, '');
