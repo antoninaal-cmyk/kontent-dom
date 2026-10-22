@@ -90,9 +90,15 @@
   </div>
 </div>
 <script>
+  // Личные открытки: короткая ссылка .../invite/?id=natalia
+  const PEOPLE = {
+    natalia: {to: 'Наталья', hi: '1', p: 'Наталья, ты психолог-наставник по проявленности, автор игры «Моя игра» и собираешь людей на классных мероприятиях по КМВ и Ставрополью. Тебе откликнулись мастермайнды — в Доме они каждую неделю: ставим цели, разбираем задачи и растём вместе.'}
+  };
   const q = new URLSearchParams(location.search);
+  const person = PEOPLE[(q.get('id') || '').toLowerCase()] || {};
+  if (person.hi && !q.get('hi')) q.set('hi', person.hi);
   const clean = s => (s || '').replace(/[<>]/g, '').trim().slice(0, 360);
-  const to = clean(q.get('to')), p = clean(q.get('p'));
+  const to = clean(person.to || q.get('to')), p = clean(person.p || q.get('p'));
   if (to) {
     document.getElementById('hello').textContent = to + ', привет!';
     document.title = to + ', приглашение в Контент-дом';
