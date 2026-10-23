@@ -90,6 +90,14 @@
   .price s{font-size:26px;color:#9a9491;margin-right:6px}
   .price small{font-family:Manrope,sans-serif;font-size:14px;color:var(--grey);font-weight:600}
   .early{display:inline-block;margin:8px 0 20px;background:var(--red);color:#fff;font-size:13px;font-weight:800;border-radius:999px;padding:7px 14px}
+  .cert{display:none;position:relative;margin:18px 0 4px;padding:22px 18px 20px;border-radius:24px;background:linear-gradient(135deg,#de2a31,var(--red) 55%,var(--red-d));color:#fff;box-shadow:0 14px 34px rgba(200,22,29,.30);overflow:hidden;animation:pop .8s cubic-bezier(.3,1.5,.5,1) both}
+  .cert::before{content:"";position:absolute;inset:8px;border:2px dashed rgba(255,255,255,.55);border-radius:18px;pointer-events:none}
+  .cert .lbl{font-size:12px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;opacity:.85}
+  .cert .sum{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:70px;line-height:1;margin:6px 0 4px}
+  .cert .for2{font-size:15px;font-weight:600;line-height:1.45}
+  .cert .till{display:inline-block;margin-top:12px;background:#fff;color:var(--red);font-weight:800;font-size:13px;border-radius:999px;padding:7px 14px}
+  .cert .star{position:absolute;color:rgba(255,255,255,.35);font-size:26px;animation:blink 1.6s ease-in-out infinite}
+  @keyframes pop{from{opacity:0;transform:scale(.8) rotate(-4deg)}to{opacity:1;transform:none}}
   .spark{position:fixed;color:var(--red);pointer-events:none;animation:fall linear infinite;opacity:0;z-index:0}
   @keyframes fall{0%{transform:translateY(-10vh) rotate(0);opacity:0}10%{opacity:.7}100%{transform:translateY(110vh) rotate(180deg);opacity:0}}
   @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
@@ -126,7 +134,14 @@
   <!-- 3. Ключ от дома -->
   <section class="step" id="s3">
     <div><span class="key">🗝️</span></div>
-    <h1>Твой ключ<br>от <em>Контент-дома</em></h1>
+    <h1 id="h3">Твой ключ<br>от <em>Контент-дома</em></h1>
+    <div class="cert" id="cert">
+      <span class="star" style="right:22px;top:16px">✦</span><span class="star" style="left:20px;bottom:18px;animation-delay:.7s">✦</span>
+      <div class="lbl">Твой подарок</div>
+      <div class="sum">−2 000 ₽</div>
+      <div class="for2">на первый месяц в Контент-доме — спасибо, что помогла мне его создать</div>
+      <span class="till">при оплате до 26 октября</span>
+    </div>
     <div class="keycard">
       <div class="item" data-k="1"><i>01</i>4 онлайн-встречи в живом формате — мастермайнды</div>
       <div class="item" data-k="2"><i>02</i>Уроки и задания с понятным результатом</div>
@@ -134,8 +149,8 @@
       <div class="item" data-k="4"><i>04</i>Чат и поддержка — чтобы не сливаться</div>
     </div>
     <div class="when"><b></b>Старт 2 ноября · 10 мест</div>
-    <div class="price"><s>12 000 ₽</s>9 890 ₽ <small>/ месяц</small></div>
-    <div><span class="early">🔥 при оплате до 26 октября</span></div>
+    <div class="price" id="price"><s>12 000 ₽</s>9 890 ₽ <small>/ месяц</small></div>
+    <div><span class="early" id="early">🔥 при оплате до 26 октября</span></div>
     <a class="btn" href="../?v=2">Заглянуть в Дом <span class="arr">→</span></a>
     <a class="btn2" href="https://t.me/antonina_aldatova" target="_blank" rel="noopener">Написать мне «ДОМ» в Telegram</a>
   </section>
@@ -161,6 +176,20 @@
   if (p) document.getElementById('pers').textContent = p;
   if (person.photo) {
     document.getElementById('duo').innerHTML = '<div class="ph"><img src="' + person.photo + '" alt=""></div><span class="link">✦</span><div class="ph mine"><img src="../hero.jpg" alt="Антонина Алдатова"></div>';
+  }
+  // Подарок для участниц кастдева: .../invite/?g=kd (−2 000 ₽ от ранней цены 9 890 ₽ до 26.10)
+  const GIFT = (person.g || q.get('g') || '').toLowerCase() === 'kd';
+  if (GIFT) {
+    document.getElementById('toLine').textContent = to ? (person.to2 || to) + ' — подарок!' : 'Тебе подарок!';
+    document.querySelector('#s1 h1').innerHTML = 'За то, что помогла <em>создать мой Дом</em>';
+    document.getElementById('tag').textContent = 'спасибо ❤';
+    if (!p) document.getElementById('pers').textContent = 'Спасибо, что пришла ко мне на интервью и честно рассказала, что мешает тебе вести блог. Из этих разговоров и родился Контент-дом — он собран под ваши задачи. Поэтому ты среди первых, кого я зову.';
+    document.getElementById('to3').innerHTML = 'Открыть подарок <span class="arr">→</span>';
+    document.getElementById('h3').innerHTML = 'Твой подарок<br>и ключ от <em>Дома</em>';
+    document.getElementById('cert').style.display = 'block';
+    document.getElementById('price').innerHTML = '<s>9 890 ₽</s>7 890 ₽ <small>/ первый месяц</small>';
+    document.getElementById('early').textContent = '🎁 цена с подарком — при оплате до 26 октября';
+    document.title = (to ? to + ', ' : '') + 'тебе подарок';
   }
   if (hi) {
     const it = document.querySelector('.item[data-k="' + hi + '"]');
