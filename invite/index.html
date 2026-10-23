@@ -159,8 +159,8 @@
 <script>
   // Личные посылки: короткая ссылка .../invite/?id=natalia
   const PEOPLE = {
-    natalia: {to: 'Наталья', to2: 'Наталье', hi: '1', photo: 'natalia.jpg?v=2',
-      p: 'Ты психолог-наставник по проявленности, автор игры «Моя игра» и собираешь людей на классных мероприятиях по КМВ и Ставрополью. Я знаю, что тебе откликнулись мастермайнды — в Доме они каждую неделю: ставим цели, разбираем задачи и растём вместе.'},
+    natalia: {to: 'Наталья', to2: 'Наталье', hi: '1', g: 'mm', photo: 'natalia.jpg?v=2',
+      p: 'Ты психолог-наставник по проявленности, автор игры «Моя игра» и собираешь людей на классных мероприятиях по КМВ и Ставрополью. Я знаю, как тебе хотелось на мастермайнды — в Доме они каждую неделю: ставим цели, разбираем задачи и растём вместе. Поэтому у меня для тебя подарок.'},
     tatiana: {to: 'Татьяна', to2: 'Татьяне', g: 'free', photo: 'tatiana.jpg', join: 'https://t.me/+nVGiCV2D8Hs1ODZi',
       p: 'Ты была одной из самых активных участниц моей мастер-группы в сентябре и октябре — и я это очень ценю. Ты кондитер, и твои десерты — настоящее искусство. Хочу, чтобы и блог у тебя был таким же: красивым и приводящим клиентов. Поэтому у меня для тебя особенный подарок.'},
     svetlana: {to: 'Светлана', to2: 'Светлане', g: 'half', photo: 'svetlana.jpg',
@@ -222,6 +222,19 @@
       document.getElementById('price').innerHTML = '<s>9 890 ₽</s>4 945 ₽ <small>/ первый месяц</small>';
       document.getElementById('early').textContent = '🎁 цена с подарком — при оплате до 26 октября';
     }
+  }
+  // Личный подарок «mm»: −2 000 ₽ от ранней цены (9 890 → 7 890 ₽ при оплате до 26.10), личный текст остаётся
+  if (MODE === 'mm') {
+    document.getElementById('toLine').textContent = to ? to + ', тебе подарок!' : 'Тебе подарок!';
+    document.getElementById('tag').textContent = 'от Антонины ❤';
+    document.getElementById('to3').innerHTML = 'Открыть подарок <span class="arr">→</span>';
+    document.getElementById('h3').innerHTML = 'Твой подарок<br>и ключ от <em>Дома</em>';
+    const cert = document.getElementById('cert');
+    cert.style.display = 'block';
+    cert.querySelector('.for2').textContent = 'на первый месяц в Контент-доме — мой подарок тебе';
+    document.getElementById('price').innerHTML = '<s>9 890 ₽</s>7 890 ₽ <small>/ первый месяц</small>';
+    document.getElementById('early').textContent = '🎁 цена с подарком — при оплате до 26 октября';
+    document.title = (to ? to + ', ' : '') + 'тебе подарок';
   }
   // Сразу вход в группу Дома в Telegram (для тех, у кого подарок уже оплачен/бесплатный)
   if (person.join) {
