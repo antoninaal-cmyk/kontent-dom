@@ -160,7 +160,9 @@
   // Личные посылки: короткая ссылка .../invite/?id=natalia
   const PEOPLE = {
     natalia: {to: 'Наталья', to2: 'Наталье', hi: '1', photo: 'natalia.jpg?v=2',
-      p: 'Ты психолог-наставник по проявленности, автор игры «Моя игра» и собираешь людей на классных мероприятиях по КМВ и Ставрополью. Я знаю, что тебе откликнулись мастермайнды — в Доме они каждую неделю: ставим цели, разбираем задачи и растём вместе.'}
+      p: 'Ты психолог-наставник по проявленности, автор игры «Моя игра» и собираешь людей на классных мероприятиях по КМВ и Ставрополью. Я знаю, что тебе откликнулись мастермайнды — в Доме они каждую неделю: ставим цели, разбираем задачи и растём вместе.'},
+    tatiana: {to: 'Татьяна', to2: 'Татьяне', g: 'free', photo: 'tatiana.jpg',
+      p: 'Ты была одной из самых активных участниц моей мастер-группы в сентябре и октябре — и я это очень ценю. Ты кондитер, и твои десерты — настоящее искусство. Хочу, чтобы и блог у тебя был таким же: красивым и приводящим клиентов. Поэтому у меня для тебя особенный подарок.'}
   };
   const q = new URLSearchParams(location.search);
   const person = PEOPLE[(q.get('id') || '').toLowerCase()] || {};
@@ -189,6 +191,24 @@
     document.getElementById('cert').style.display = 'block';
     document.getElementById('price').innerHTML = '<s>9 890 ₽</s>7 890 ₽ <small>/ первый месяц</small>';
     document.getElementById('early').textContent = '🎁 цена с подарком — при оплате до 26 октября';
+    document.title = (to ? to + ', ' : '') + 'тебе подарок';
+  }
+  // Подарок «бесплатный вход»: первый месяц в Доме бесплатно (только по личной ссылке, цены на сайте не меняются)
+  const FREE = (person.g || q.get('g') || '').toLowerCase() === 'free';
+  if (FREE) {
+    document.getElementById('toLine').textContent = to ? (person.to2 || to) + ' — подарок!' : 'Тебе подарок!';
+    document.querySelector('#s1 h1').innerHTML = 'За то, что была со мной <em>в мастер-группе</em>';
+    document.getElementById('tag').textContent = 'спасибо ❤';
+    document.getElementById('to3').innerHTML = 'Открыть подарок <span class="arr">→</span>';
+    document.getElementById('h3').innerHTML = 'Твой подарок<br>и ключ от <em>Дома</em>';
+    const cert = document.getElementById('cert');
+    cert.style.display = 'block';
+    cert.querySelector('.sum').textContent = 'Вход бесплатно';
+    cert.querySelector('.sum').style.fontSize = '50px';
+    cert.querySelector('.for2').textContent = 'первый месяц в Контент-доме — за активное участие в моей мастер-группе в сентябре и октябре';
+    cert.querySelector('.till').textContent = 'напиши мне «ДОМ», чтобы забрать';
+    document.getElementById('price').innerHTML = '<s>12 000 ₽</s>бесплатно <small>/ первый месяц</small>';
+    document.getElementById('early').textContent = '🎁 это мой подарок тебе';
     document.title = (to ? to + ', ' : '') + 'тебе подарок';
   }
   if (hi) {
