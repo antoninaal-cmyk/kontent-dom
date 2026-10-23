@@ -49,7 +49,7 @@
   .bow::before{left:0;transform:rotate(-20deg)}
   .bow::after{right:0;border-radius:50% 50% 50% 10%;transform:rotate(20deg)}
   .knot{position:absolute;left:50%;top:40px;width:24px;height:22px;margin-left:-12px;background:var(--red-d);border-radius:7px;z-index:4;transition:opacity .4s}
-  .tag{position:absolute;right:-6px;bottom:30px;z-index:5;background:var(--black);color:#fff;font-family:'Bad Script',cursive;font-size:17px;padding:6px 12px;border-radius:10px;transform:rotate(8deg)}
+  .tag{position:absolute;right:-6px;bottom:30px;z-index:5;background:var(--black);color:#fff;font-family:'Bad Script',cursive;font-size:17px;padding:6px 12px;border-radius:10px;transform:rotate(8deg);white-space:nowrap}
   .gift.open{animation:none}
   .gift.open .lid{transform:translateY(-120px) rotate(-18deg);opacity:0}
   .gift.open .bow{transform:translateY(-140px) rotate(14deg) scale(.8);opacity:0}
@@ -200,9 +200,9 @@
   const MODE = (person.g || q.get('g') || '').toLowerCase();
   const FREE = MODE === 'free' || MODE === 'half';
   if (FREE) {
-    document.getElementById('toLine').textContent = to ? (person.to2 || to) + ' — подарок!' : 'Тебе подарок!';
+    document.getElementById('toLine').textContent = to ? to + ', тебе подарок!' : 'Тебе подарок!';
     document.querySelector('#s1 h1').innerHTML = 'За то, что была со мной <em>в мастер-группе</em>';
-    document.getElementById('tag').textContent = 'спасибо ❤';
+    document.getElementById('tag').textContent = 'спасибо от Антонины ❤';
     document.getElementById('to3').innerHTML = 'Открыть подарок <span class="arr">→</span>';
     document.getElementById('h3').innerHTML = 'Твой подарок<br>и ключ от <em>Дома</em>';
     const cert = document.getElementById('cert');
