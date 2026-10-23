@@ -161,7 +161,7 @@
   const PEOPLE = {
     natalia: {to: 'Наталья', to2: 'Наталье', hi: '1', photo: 'natalia.jpg?v=2',
       p: 'Ты психолог-наставник по проявленности, автор игры «Моя игра» и собираешь людей на классных мероприятиях по КМВ и Ставрополью. Я знаю, что тебе откликнулись мастермайнды — в Доме они каждую неделю: ставим цели, разбираем задачи и растём вместе.'},
-    tatiana: {to: 'Татьяна', to2: 'Татьяне', g: 'free', photo: 'tatiana.jpg',
+    tatiana: {to: 'Татьяна', to2: 'Татьяне', g: 'free', photo: 'tatiana.jpg', join: 'https://t.me/+nVGiCV2D8Hs1ODZi',
       p: 'Ты была одной из самых активных участниц моей мастер-группы в сентябре и октябре — и я это очень ценю. Ты кондитер, и твои десерты — настоящее искусство. Хочу, чтобы и блог у тебя был таким же: красивым и приводящим клиентов. Поэтому у меня для тебя особенный подарок.'},
     svetlana: {to: 'Светлана', to2: 'Светлане', g: 'half', photo: 'svetlana.jpg',
       p: 'Я очень благодарна тебе за то, что ты вошла в мою мастер-группу и доверилась мне. Ты была активной участницей — и за это у меня для тебя подарок. Буду очень рада видеть тебя в Контент-доме!'}
@@ -222,6 +222,15 @@
       document.getElementById('price').innerHTML = '<s>9 890 ₽</s>4 945 ₽ <small>/ первый месяц</small>';
       document.getElementById('early').textContent = '🎁 цена с подарком — при оплате до 26 октября';
     }
+  }
+  // Сразу вход в группу Дома в Telegram (для тех, у кого подарок уже оплачен/бесплатный)
+  if (person.join) {
+    const b = document.querySelector('#s3 .btn'), b2 = document.querySelector('#s3 .btn2');
+    b.href = person.join; b.target = '_blank'; b.rel = 'noopener';
+    b.innerHTML = 'Войти в Контент-дом <span class="arr">→</span>';
+    b2.href = '../?v=2'; b2.removeAttribute('target'); b2.textContent = 'Посмотреть, что внутри Дома';
+    const t = document.querySelector('#cert .till'); if (t) t.textContent = 'вход уже открыт — жми кнопку ниже';
+    document.getElementById('early').textContent = '🎁 присоединяйся к нашему Дому в Telegram';
   }
   if (hi) {
     const it = document.querySelector('.item[data-k="' + hi + '"]');
