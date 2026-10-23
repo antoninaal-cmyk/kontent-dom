@@ -170,12 +170,17 @@
       p2: 'Я помню, что ты хочешь: больше охватов и подписчиков, новых туристов и заявок из блога. В Доме мы будем этому учиться: красиво оформлять и публиковать, озвучивать текст, рассказывать о местах, подбирать фото и рекомендации так, чтобы хотелось поехать именно с тобой.',
       secret: '🤫 <b>А по секрету:</b> в конце мы встретимся вживую — что-то вроде выпускного. Пока это тайна, никому не говори 😉',
       close: 'Мне очень хочется, чтобы ты была в Контент-доме.'},
+    evgenia: {to: 'Евгения', g: 'mm', photo: 'evgenia.jpg',
+      line: 'Евгения, тебе приглашение с подарком!', h1: 'За то, что <em>училась у меня</em>', hello: 'Евгения, дорогая!',
+      p: 'Спасибо, что доверилась мне и прошла со мной обучение по социальному контракту. Ты эксперт по детским пособиям и помогаешь семьям получить то, что им положено, — это очень нужное дело.',
+      p2: 'Контент-дом поможет не только с блогом, но и с работой в целом: мы упакуем тебя как эксперта, научимся рассказывать о пособиях просто и понятно, чтобы к тебе приходили клиенты, и подключим нейросети, чтобы всё делалось проще.',
+      close: 'Мне очень хочется, чтобы ты была в Контент-доме.'},
     svetlana: {to: 'Светлана', to2: 'Светлане', g: 'half', photo: 'svetlana.jpg',
       p: 'Я очень благодарна тебе за то, что ты вошла в мою мастер-группу и доверилась мне. Ты была активной участницей — и за это у меня для тебя подарок. Буду очень рада видеть тебя в Контент-доме!'}
   };
   const q = new URLSearchParams(location.search);
   const person = PEOPLE[(q.get('id') || '').toLowerCase()] || {};
-  const clean = s => (s || '').replace(/[<>]/g, '').trim().slice(0, 400);
+  const clean = s => (s || '').replace(/[<>]/g, '').trim().slice(0, 900);
   const to = clean(person.to || q.get('to')), p = clean(person.p || q.get('p'));
   const hi = (person.hi || q.get('hi') || '').replace(/\D/g, '');
 
@@ -246,6 +251,8 @@
   // Личные строки поверх режима: line (над коробкой), hello, p2, secret (розовая плашка), close
   if (person.line) document.getElementById('toLine').textContent = person.line;
   if (person.hello) document.getElementById('hello').textContent = person.hello;
+  if (person.h1) document.querySelector('#s1 h1').innerHTML = person.h1;
+  if (person.h1 && MODE === 'mm') document.getElementById('tag').textContent = 'спасибо от Антонины ❤';
   if (person.secret) document.getElementById('pers').insertAdjacentHTML('afterend', '<p class="secret">' + person.secret + '</p>');
   if (person.p2) document.getElementById('pers').insertAdjacentHTML('afterend', '<p>' + person.p2 + '</p>');
   if (person.close) document.getElementById('close').textContent = person.close;
