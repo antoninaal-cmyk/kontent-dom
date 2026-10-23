@@ -196,7 +196,7 @@
     document.title = (to ? to + ', ' : '') + 'тебе подарок';
   }
   // Подарок «бесплатный вход»: первый месяц в Доме бесплатно (только по личной ссылке, цены на сайте не меняются)
-  // Режим «half»: −50% на первый месяц (12 000 → 6 000 ₽), тоже только по личной ссылке
+  // Режим «half»: −50% от ранней цены на первый месяц (9 890 → 4 945 ₽ до 26.10), тоже только по личной ссылке
   const MODE = (person.g || q.get('g') || '').toLowerCase();
   const FREE = MODE === 'free' || MODE === 'half';
   if (FREE) {
@@ -218,8 +218,9 @@
       cert.querySelector('.sum').textContent = '−50%';
       cert.querySelector('.sum').style.fontSize = '';
       cert.querySelector('.for2').textContent = 'на первый месяц в Контент-доме — за активное участие в моей мастер-группе';
-      document.getElementById('price').innerHTML = '<s>12 000 ₽</s>6 000 ₽ <small>/ первый месяц</small>';
-      document.getElementById('early').textContent = '🎁 цена с моим подарком';
+      cert.querySelector('.till').textContent = 'при оплате до 26 октября · напиши мне «ДОМ»';
+      document.getElementById('price').innerHTML = '<s>9 890 ₽</s>4 945 ₽ <small>/ первый месяц</small>';
+      document.getElementById('early').textContent = '🎁 цена с подарком — при оплате до 26 октября';
     }
   }
   if (hi) {
